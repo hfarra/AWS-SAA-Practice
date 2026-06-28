@@ -10,12 +10,13 @@ dnf install -y httpd
 # yum install -y httpd
 
 # Start the Apache server
-dnf update -y
-dnf install -y httpd
 systemctl start httpd
 systemctl enable httpd
 
-# Fetch the Availability Zone information using IMDSv2
+echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
+
+
+#Fetch the Availability Zone information using IMDSv2
 TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
 AZ=`curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/availability-zone`
 
@@ -45,4 +46,4 @@ cat > /var/www/html/index.html <<EOF
 EOF
 
 # Ensure the httpd service is correctly set up to start on boot
-chkconfig httpd on
+#chkconfig httpd on
