@@ -1,10 +1,17 @@
 #!/bin/bash
 
 # Update the system and install necessary packages
-yum update -y
-yum install -y httpd
+
+dnf update -y
+dnf install -y httpd
+
+#The following don't work with Amazon 2023 AMI
+# yum update -y
+# yum install -y httpd
 
 # Start the Apache server
+dnf update -y
+dnf install -y httpd
 systemctl start httpd
 systemctl enable httpd
 
